@@ -83,11 +83,17 @@ nnoremap <space> za
 " {{{ Looks
 
 syntax enable                      " turn on syntax processing
-set guifont=Courier_New:h10:cANSI  " gVim font
 set guioptions-=m                  " turn off menu gui
 set guioptions-=T                  " turn off toolbar gui
 set guioptions-=r                  " turn off right scroll bar
 set guioptions-=L                  " turn off left scroll bar
+
+" Windows vs. Linux font
+if has("win32") || has("win16")
+    set guifont=Courier_New:h10:cANSI
+else
+    set guifont=Monospace\ 10
+endif
 
 " gVim vs. Vim colorscheme
 if has('gui_running')
@@ -275,5 +281,11 @@ augroup END " }}}
 
 set nobackup   " turn off creation of backup files
 set noswapfile " no more .swp file creation
+
+" }}}
+" {{{ Linux-Only
+
+" write restricted file when forgot to open with sudo
+cnoremap w!! w !sudo tee > /dev/null %
 
 " }}}
