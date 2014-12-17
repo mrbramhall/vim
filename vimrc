@@ -21,6 +21,7 @@ set matchtime=5                 " time to show matching brace
 set colorcolumn=72,80           " keeps lines from getting too long
 set nomodeline                  " do not read modelines (dangerous)
 set clipboard=unnamed           " Vim shares clipboard with Windows system
+set laststatus=2                " statusline appears all the time
 
 " custom statusline
 set statusline=Jesus\ is\ LORD!\  "  praise ye the LORD!
@@ -100,7 +101,9 @@ if has('gui_running')
     colorscheme hemisu                 " gVim colorscheme
     set background=light
 else
-    colorscheme default                " Vim colorscheme
+    colorscheme 256-grayvim            " need this for some reason
+    colorscheme hemisu                 " Vim colorscheme
+    set background=light
 endif
 
 " }}}
@@ -215,7 +218,7 @@ nnoremap <s-cr> O<esc>j
 
 " mappings to upper-case current word
 inoremap <c-u> <esc>viwUea
-nnoremap <c-u> viwUe
+nnoremap <c-u> viwU
 
 " execute current line or current line selection as Vim EX commands
 nnoremap <f2> :execute getline(".")<cr>
@@ -228,10 +231,12 @@ augroup C " {{{
 
     autocmd!
 
-    autocmd FileType c setlocal foldmethod=marker foldmarker={,}
-    autocmd FileType c silent! %foldc
+    autocmd FileType c,cpp setlocal foldmethod=marker foldmarker={,}
+    autocmd FileType c,cpp silent! %foldc
 
-    autocmd FileType c iabbrev printF printf
+    autocmd FileType c,cpp iabbrev printF printf
+
+    autocmd FileType c,cpp nnoremap <buffer> <localleader>a :A<cr>
 
 augroup END " }}}
 augroup Python " {{{
