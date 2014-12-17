@@ -62,7 +62,6 @@ let g:gundo_preview_height = 15
 let g:gundo_preview_bottom = 0
 let g:gundo_right = 0
 let g:gundo_help = 0
-let g:gundo_disable = 0
 let g:gundo_map_move_older = "j"
 let g:gundo_map_move_newer = "k"
 let g:gundo_close_on_revert = 0
