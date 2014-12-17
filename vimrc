@@ -1,15 +1,19 @@
 " {{{ Basic
 
-set nocompatible  " vim not vi
-cd $HOME          " start vim in user home directory
+set nocompatible           " vim not vi
+filetype plugin indent on  " plugins and indents for certain filetypes
+cd $HOME                   " start vim in user home directory
 
 " }}}
 " {{{ UI Config
 
-set number                      " number the lines
+set encoding=utf-8              " utf-8 encoding
+set scrolloff=3                 " offset when scrolling
+set relativenumber              " number the lines relative to each other
 set numberwidth=5               " width of number column
 set history=1000                " long command-line history
 set showcmd                     " show most recent Vim command
+set showmode                    " show mode (example: -- INSERT --)
 set nocursorline                " horizontal cursor line off
 set hidden                      " non-visible buffers continue in background
 set backspace=indent,eol,start  " backspace works the way it should
@@ -22,9 +26,10 @@ set colorcolumn=72,80           " keeps lines from getting too long
 set nomodeline                  " do not read modelines (dangerous)
 set clipboard=unnamed           " Vim shares clipboard with Windows system
 set laststatus=2                " statusline appears all the time
+set undofile                    " keep undo history from session to session
 
 " custom statusline
-set statusline=Jesus\ is\ LORD!\  "  praise ye the LORD!
+set statusline=Jesus\ is\ LORD!\  " praise ye the LORD!
 set statusline+=%.40F             " name of file (no path)
 set statusline+=\                 " separator
 set statusline+=%y                " filetype flag
@@ -45,16 +50,29 @@ set statusline+=%%%p              " line-wise percentage through file
 " {{{ Plugins
 
 " Pathogen
-call pathogen#infect()  " enable Pathogen plugin manager
-filetype plugin on      " enable filetype plugins
+execute pathogen#infect()
 
-" TagsList mappings
+" TagsList
 nnoremap <f5> :TlistToggle<cr>
+
+" Gundo
+nnoremap <f6> :GundoToggle<cr>
+let g:gundo_width = 40
+let g:gundo_preview_height = 15
+let g:gundo_preview_bottom = 0
+let g:gundo_right = 0
+let g:gundo_help = 0
+let g:gundo_disable = 0
+let g:gundo_map_move_older = "j"
+let g:gundo_map_move_newer = "k"
+let g:gundo_close_on_revert = 0
+let g:gundo_auto_preview = 1
+let g:gundo_playback_delay = 60
 
 " NERDTree
 nnoremap <c-n> :NERDTreeToggle<cr>
 
-" CtrlP settings
+" CtrlP
 let g:ctrlp_switch_buffer = 0
 
 " }}}
@@ -109,7 +127,6 @@ endif
 " }}}
 " {{{ Spaces, Tabs, Indents
 
-filetype indent on  " set indentation for different filetypes
 set tabstop=4       " each tab is worth 4 spaces in length
 set softtabstop=4   " set tabs to 4 spaces in length in editting
 set expandtab       " tabs are spaces
@@ -179,7 +196,7 @@ let mapleader=","
 nnoremap <leader><space> :nohlsearch<cr>
 
 " edit vimrc in a new tab page
-nnoremap <leader>ve :split $MYVIMRC<cr>
+nnoremap <leader>ve :vsplit $MYVIMRC<cr>
 
 " source written vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
