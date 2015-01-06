@@ -9,6 +9,7 @@ cd $HOME                   " start vim in user home directory
 
 set encoding=utf-8              " utf-8 encoding
 set scrolloff=3                 " offset when scrolling
+set number                      " number lines
 set relativenumber              " number the lines relative to each other
 set numberwidth=5               " width of number column
 set history=1000                " long command-line history
@@ -26,7 +27,6 @@ set colorcolumn=72,80           " keeps lines from getting too long
 set nomodeline                  " do not read modelines (dangerous)
 set clipboard=unnamed           " Vim shares clipboard with Windows system
 set laststatus=2                " statusline appears all the time
-set undofile                    " keep undo history from session to session
 
 " custom statusline
 set statusline=Jesus\ is\ LORD!\  " praise ye the LORD!
@@ -45,6 +45,7 @@ set statusline+=,                 " separator
 set statusline+=%c                " column number
 set statusline+=\ \               " separator
 set statusline+=%%%p              " line-wise percentage through file
+set statusline+=\                 " spacer
 
 " }}}
 " {{{ Plugins
@@ -229,7 +230,7 @@ nnoremap - <c-x>
 nnoremap W :w<cr>
 
 " generate a newline below/above cursor using ENTER/SHIFT-ENTER
-nnoremap <Cr> o<esc>k
+nnoremap <cr> o<esc>k
 nnoremap <s-cr> O<esc>j
 
 " mappings to upper-case current word
@@ -239,6 +240,9 @@ nnoremap <c-u> viwU
 " execute current line or current line selection as Vim EX commands
 nnoremap <f2> :execute getline(".")<cr>
 vnoremap <f2> :<c-u>execute join(getline("'<","'>"),'<bar>')<cr>
+
+" paste while in insert mode
+inoremap <c-p> <esc>pa
 
 " }}}
 " {{{ Autogroups
@@ -253,6 +257,9 @@ augroup C " {{{
     autocmd FileType c,cpp iabbrev printF printf
 
     autocmd FileType c,cpp nnoremap <buffer> <localleader>a :A<cr>
+
+    " function declaration to definition
+    autocmd FileType c,cpp nnoremap <buffer> <localleader>f A<bs><cr>{<cr>}<esc>O
 
 augroup END " }}}
 augroup Python " {{{
@@ -277,6 +284,14 @@ augroup Text " {{{
     autocmd!
 
     autocmd FileType text setlocal foldmethod=indent
+
+augroup END " }}}
+augroup CSS " {{{
+
+    autocmd!
+
+    autocmd FileType css setlocal foldmethod=marker foldmarker={,}
+    autocmd FileType css silent! %foldc
 
 augroup END " }}}
 augroup Vim " {{{
