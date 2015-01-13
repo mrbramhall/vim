@@ -78,6 +78,12 @@ let g:ctrlp_switch_buffer = 0
 " Indent Guides
 let g:indent_guides_enable_on_vim_startup = 0
 
+" UltiSnips
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEditSplit = "vertical"
+
 " }}}
 " {{{ Functions
 
