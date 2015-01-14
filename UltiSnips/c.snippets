@@ -1,0 +1,258 @@
+###########################################################################
+#                            TextMate Snippets                            #
+###########################################################################
+
+priority -50
+
+snippet def "#define ..."
+#define ${1}
+endsnippet
+
+snippet ifndef "#ifndef ... #define ... #endif"
+#ifndef ${1/([A-Za-z0-9_]+).*/$1/}
+#define ${1:SYMBOL} ${2:value}
+#endif
+endsnippet
+
+snippet #if "#if #endif" b
+#if ${1:0}
+${VISUAL}${2}
+#endif
+endsnippet
+
+snippet inc "#include local header (inc)"
+#include "${1:`!p snip.rv = snip.basename`}.h"
+endsnippet
+
+snippet Inc "#include <> (Inc)"
+#include <${1:stdio}.h>
+endsnippet
+
+snippet mark "#pragma mark (mark)"
+#if 0
+${1:#pragma mark -
+}#pragma mark $2
+#endif
+
+$0
+endsnippet
+
+snippet main "main() (main)"
+int main(int argc, char *argv[])
+{
+	${VISUAL}${0}
+
+	return 0;
+}
+endsnippet
+
+snippet for "for loop (for)"
+for(${1:i}${2: = 0}; $1${3: < count}; $1${4:++}) {
+	${VISUAL}${4}
+}
+endsnippet
+
+snippet fore "for loop empty"
+for(${1:/* init */}; ${2:/* condition */}; ${3:/* loop-action */}) {
+	${VISUAL}${4}
+}
+endsnippet
+
+snippet enum "Enumeration"
+enum ${1:name} { ${2} };
+endsnippet
+
+snippet tde
+typedef enum {
+	${1}
+} ${2:EnumTypeName};
+endsnippet
+
+snippet once "Include header once only guard"
+#ifndef ${1:`!p
+if not snip.c:
+	import random, string
+	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn)
+    #rand = ''.join(random.sample(string.ascii_letters+string.digits, 8))
+	snip.rv = ('_%s' % (name))#,rand)).upper()
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${VISUAL}${0}
+
+#endif
+endsnippet
+
+snippet td "Typedef"
+typedef ${1:int} ${2:MyCustomType};
+endsnippet
+
+snippet wh "while loop"
+while(${1:/* condition */}) {
+	${VISUAL}${2}
+}
+endsnippet
+
+snippet do "do...while loop (do)"
+do {
+	${VISUAL}${2}
+} while(${1:/* condition */});
+endsnippet
+
+snippet fpr "fprintf ..."
+fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet if "if .. (if)"
+if(${1:/* condition */}) {
+	${VISUAL}${2}
+}
+endsnippet
+
+snippet el "else .. (else)"
+else {
+	${VISUAL}${1}
+}
+endsnippet
+
+snippet elif "else if .. (eli)"
+else if(${1:/* condition */}) {
+	${VISUAL}${2}
+}
+endsnippet
+
+snippet ife "if .. else (ife)"
+if(${1:/* condition */}) {
+	${2}
+} else {
+	${3}
+}
+endsnippet
+
+snippet ifi "if .. (if inline)"
+if(${1:/* condition */}) ${VISUAL}${2};
+endsnippet
+
+snippet eli "else .. (else inline)"
+else ${VISUAL}${1};
+endsnippet
+
+snippet ifei "if .. else (ife inline)"
+if(${1:/* condition */}) ${2};
+else ${3};
+endsnippet
+
+snippet elifi "else if .. (else if inline)"
+else if(${1:/* condition */}) ${VISUAL}${2};
+endsnippet
+
+snippet t
+${1:/* condition */} ? ${2:true} : ${3:false}
+endsnippet
+
+snippet sw "switch"
+switch(${1:/* variable */}) {
+	${2:/* cases */}
+	default:${3}
+		break;
+}
+endsnippet
+
+snippet case "case with break"
+case ${1:/* value */}:
+	${2}
+	break;
+endsnippet
+
+snippet casen "case no break"
+case ${1:/* value */}:
+endsnippet
+
+snippet pr "printf .. (printf)"
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet st "struct"
+struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+	${0:/* data */}
+};
+endsnippet
+
+snippet tds "typedef struct"
+typedef struct ${2:$1} {
+	${0:/* data */}
+} ${1:MyCustomType};
+endsnippet
+
+snippet fun "function" b
+${1:void} ${2:function_name}(${3})
+{
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet fund "function declaration" b
+${1:void} ${2:function_name}(${3});
+endsnippet
+
+snippet tdf
+typedef ${1:void} (*${2:FunctionTypeName})(${3});
+endsnippet
+
+## Personal Configuration Snippets
+
+snippet ch "check macro"
+check(${1:/* condition */}, "${2:error message}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet chm "check_mem macro"
+check_mem(${1:/* variable */});
+endsnippet
+
+snippet chd "check_debug macro"
+check_debug(${1:/* condition */}, "${2:error message}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet mua "mu_assert macro"
+mu_assert(${1:/* condition */}, "${2:error message}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet de "debug macro"
+debug("${1:debug message}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet as "assert"
+assert(${1:/* condition */} && "${2:error message}");
+endsnippet
+
+snippet test "test function for minunit.h"
+char *test_${1:FUNCTION_NAME}()
+{
+	${0}
+
+	return NULL;
+}
+endsnippet
+
+snippet testf "test file skeleton for minunit.h"
+#include "minunit.h"
+/* additional includes go here */
+
+/* variables go here */
+
+/* test functions go here */
+
+char *all_tests()
+{
+	mu_suite_start();
+
+	mu_run_test(test_${1:FUNCTION_NAME});${0}
+
+	return NULL;
+}
+
+RUN_TESTS(all_tests);
+endsnippet
+
+# vim:ft=snippets:

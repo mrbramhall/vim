@@ -219,6 +219,9 @@ vnoremap <leader>P :!python<cr>
 " fold top level of folds for current file
 nnoremap <leader>f :%foldc<cr>
 
+" access UltiSnips file for current filetype
+nnoremap <leader>u :UltiSnipsEdit<cr>
+
 " }}}
 " {{{ Local Leader Mappings
 
