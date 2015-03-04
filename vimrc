@@ -23,13 +23,12 @@ set wildmenu                    " auto-completion activated by <TAB>
 set lazyredraw                  " redraw the screen only when needed
 set showmatch                   " matching braces will be highlighted
 set matchtime=5                 " time to show matching brace
-set colorcolumn=72,80           " keeps lines from getting too long
+set colorcolumn=73,80           " keeps lines from getting too long
 set nomodeline                  " do not read modelines (dangerous)
-set clipboard=unnamed           " Vim shares clipboard with Windows system
 set laststatus=2                " statusline appears all the time
 
 " custom statusline
-set statusline=Jesus\ is\ LORD!\  " praise ye the LORD!
+set statusline=JESUS\ IS\ LORD!\  " praise ye the LORD!
 set statusline+=%.40F             " name of file (no path)
 set statusline+=\                 " separator
 set statusline+=%y                " filetype flag
@@ -44,8 +43,15 @@ set statusline+=%l                " current line number
 set statusline+=,                 " separator
 set statusline+=%c                " column number
 set statusline+=\ \               " separator
-set statusline+=%%%p              " line-wise percentage through file
+set statusline+=%p%%              " line-wise percentage through file
 set statusline+=\                 " spacer
+
+" platform-dependent configurations
+if has("win32") || has("win16")
+    set clipboard=unnamed     " Vim shares clipboard with Windows system
+else
+    set clipboard=unnamedplus " Vim shares clipboard with X Window system
+endif
 
 " }}}
 " {{{ Plugins
@@ -222,11 +228,20 @@ nnoremap <leader>f :%foldc<cr>
 " access UltiSnips file for current filetype
 nnoremap <leader>u :UltiSnipsEdit<cr>
 
+" make mappings
+nnoremap <leader>ma :!make all<cr>
+nnoremap <leader>md :!make dev<cr>
+nnoremap <leader>mc :!make clean<cr>
+nnoremap <leader>mt :!make tests<cr>
+nnoremap <leader>mi :!sudo make install<cr>
+
 " }}}
 " {{{ Local Leader Mappings
 
 " <LOCALLEADER>
 let maplocalleader=";"
+
+" *** See Autogroups for actual mappings ***
 
 " }}}
 " {{{ Misc Non-Leader Mappings
@@ -259,13 +274,14 @@ inoremap <c-p> <esc>pa
 " }}}
 " {{{ Autogroups
 
-augroup C " {{{
+augroup C_CPP " {{{
 
     autocmd!
 
     autocmd FileType c,cpp setlocal foldmethod=marker foldmarker={,}
     autocmd FileType c,cpp silent! %foldc
 
+    " abbreviations
     autocmd FileType c,cpp iabbrev printF printf
 
     autocmd FileType c,cpp nnoremap <buffer> <localleader>a :A<cr>
@@ -289,6 +305,14 @@ augroup Makefile " {{{
 
     " use actual TAB chars in Makefile
     autocmd FileType make setlocal noexpandtab
+
+augroup END " }}}
+augroup Markdown " {{{
+
+    autocmd!
+
+    " set textwidth to 79 chars for autowrapping
+    autocmd FileType markdown setlocal textwidth=79
 
 augroup END " }}}
 augroup Text " {{{
@@ -317,7 +341,7 @@ augroup END " }}}
 augroup Other " {{{
 
     " welcome message
-    autocmd VimEnter * echom "Jesus Christ is LORD!"
+    autocmd VimEnter * echom "JESUS CHRIST IS LORD!"
 
     " remove trailing whitespace for certain filetypes
     autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
