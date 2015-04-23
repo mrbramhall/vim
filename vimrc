@@ -134,7 +134,7 @@ if has('gui_running')
     colorscheme hemisu                 " gVim colorscheme
     set background=light
 else
-    colorscheme 256-grayvim            " need this for some reason
+    colorscheme 256-grayvim            " this needs to be here for some reason
     colorscheme hemisu                 " Vim colorscheme
     set background=light
 endif
