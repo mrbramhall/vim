@@ -22,7 +22,7 @@ set wrap                        " wrap lines visually within windows
 set wildmenu                    " auto-completion activated by <TAB>
 set lazyredraw                  " redraw the screen only when needed
 set showmatch                   " matching braces will be highlighted
-set matchtime=5                 " time to show matching brace
+set matchtime=0                 " time to show matching brace
 set colorcolumn=73,80           " keeps lines from getting too long
 set nomodeline                  " do not read modelines (dangerous)
 set laststatus=2                " statusline appears all the time
@@ -106,7 +106,7 @@ endfun " }}}
 
 set foldenable         " enable folds
 set foldlevelstart=10  " nothing open by default
-set foldnestmax=10     " no more than this many nested folds
+set foldnestmax=2      " no more than this many nested folds
 
 " toggle folds with space
 nnoremap <space> za
@@ -142,10 +142,10 @@ endif
 " }}}
 " {{{ Spaces, Tabs, Indents
 
-set tabstop=4       " each tab is worth 4 spaces in length
-set softtabstop=4   " set tabs to 4 spaces in length in editting
+set tabstop=4       " spaces per tab visually
+set softtabstop=4   " spaces per tab actually
 set expandtab       " tabs are spaces
-set shiftwidth=4    " indents are 4 spaces
+set shiftwidth=4    " spaces per indent
 set autoindent      " the indent from one line is carried to the next
 set cindent         " automatic indentation for certain filetypes
 
@@ -194,9 +194,6 @@ nnoremap <c-down> <c-w>-
 nnoremap <c-left> <c-w><
 nnoremap <c-right> <c-w>>
 
-" create a new tab page easier
-nnoremap <c-t> :tabnew<cr>
-
 " move through tab pages using tab and shift-tab
 nnoremap <tab> :tabn<cr>
 nnoremap <s-tab> :tabp<cr>
@@ -210,11 +207,8 @@ let mapleader=","
 " unhighlight search terms
 nnoremap <leader><space> :nohlsearch<cr>
 
-" edit vimrc in a new tab page
-nnoremap <leader>ve :vsplit $MYVIMRC<cr>
-
-" source written vimrc
-nnoremap <leader>vs :source $MYVIMRC<cr>
+" fold top level of folds for current file
+nnoremap <leader>f :%foldc<cr>
 
 " run Python code (normal and visual mode)
 noremap <leader>p :w !python<cr>
@@ -222,8 +216,14 @@ noremap <leader>p :w !python<cr>
 " replace selected Python code with output
 vnoremap <leader>P :!python<cr>
 
-" fold top level of folds for current file
-nnoremap <leader>f :%foldc<cr>
+" create a new tab page easier
+nnoremap <leader>t :tabnew<cr>
+
+" edit vimrc in a new tab page
+nnoremap <leader>ve :vsplit $MYVIMRC<cr>
+
+" source written vimrc
+nnoremap <leader>vs :source $MYVIMRC<cr>
 
 " access UltiSnips file for current filetype
 nnoremap <leader>u :UltiSnipsEdit<cr>
@@ -231,6 +231,7 @@ nnoremap <leader>u :UltiSnipsEdit<cr>
 " make mappings
 nnoremap <leader>ma :!make all<cr>
 nnoremap <leader>md :!make dev<cr>
+nnoremap <leader>mv :!make valgrind<cr>
 nnoremap <leader>mc :!make clean<cr>
 nnoremap <leader>mt :!make tests<cr>
 nnoremap <leader>mi :!sudo make install<cr>
@@ -278,7 +279,8 @@ augroup C_CPP " {{{
 
     autocmd!
 
-    autocmd FileType c,cpp setlocal foldmethod=marker foldmarker={,}
+    autocmd FileType c,cpp setlocal foldnestmax=2
+    autocmd FileType c,cpp setlocal foldmethod=syntax
     autocmd FileType c,cpp silent! %foldc
 
     " abbreviations
