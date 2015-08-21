@@ -3,6 +3,7 @@
 set nocompatible           " vim not vi
 filetype plugin indent on  " plugins and indents for certain filetypes
 cd $HOME                   " start vim in user home directory
+syntax enable              " turn on syntax processing
 
 " }}}
 " {{{ UI Config
@@ -26,6 +27,7 @@ set matchtime=0                 " time to show matching brace
 set colorcolumn=73,80           " keeps lines from getting too long
 set nomodeline                  " do not read modelines (dangerous)
 set laststatus=2                " statusline appears all the time
+
 
 " custom statusline
 set statusline=JESUS\ IS\ LORD!\  " praise ye the LORD!
@@ -89,6 +91,7 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit = "vertical"
+let g:ultisnips_python_style = "google"
 
 " }}}
 " {{{ Functions
@@ -116,7 +119,6 @@ nnoremap <space> za
 " }}}
 " {{{ Looks
 
-syntax enable                      " turn on syntax processing
 set guioptions-=m                  " turn off menu gui
 set guioptions-=T                  " turn off toolbar gui
 set guioptions-=r                  " turn off right scroll bar
@@ -130,14 +132,16 @@ else
 endif
 
 " gVim vs. Vim colorscheme
-if has('gui_running')
-    colorscheme hemisu                 " gVim colorscheme
+if has("gui_running")
+    colorscheme default
     set background=light
 else
-    colorscheme 256-grayvim            " this needs to be here for some reason
-    colorscheme hemisu                 " Vim colorscheme
+    colorscheme default
     set background=light
 endif
+
+" custom color settings (make sure these are after the colorscheme command)
+highlight ColorColumn ctermbg=7
 
 " }}}
 " {{{ Spaces, Tabs, Indents
@@ -220,7 +224,7 @@ vnoremap <leader>P :!python<cr>
 nnoremap <leader>t :tabnew<cr>
 
 " edit vimrc in a new tab page
-nnoremap <leader>ve :vsplit $MYVIMRC<cr>
+nnoremap <leader>ve :split $MYVIMRC<cr>
 
 " source written vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>

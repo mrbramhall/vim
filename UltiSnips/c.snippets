@@ -1,5 +1,5 @@
 ###########################################################################
-#                            TextMate Snippets                            #
+#                            JESUS CHRIST IS LORD!                        #
 ###########################################################################
 
 priority -50
@@ -56,8 +56,8 @@ int main(void)
 endsnippet
 
 snippet for "for loop (for)"
-for(${1:i}${2: = 0}; $1${3: < count}; $1${4:++}) {
-	${VISUAL}${5}
+for(${1:int }${2:i}${3: = 0}; $2${4: < count}; $2${5:++}) {
+	${VISUAL}${6}
 }
 endsnippet
 
@@ -221,37 +221,40 @@ endsnippet
 snippet cf "comment fancy"
 /* ${1:comment}
  */
-
 endsnippet
 
 ## Personal Configuration Snippets
 
 snippet te "test macro"
-test(${1:/* condition */}, "${2:%s}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}${0}
+test(${1:/* condition */}, ${2:/* label */}, "${3:%s}", ${4});${0}
 endsnippet
 
 snippet dte "db_test macro"
-db_test(${1:/* condition */}, "${2:%s}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}${0}
+db_test(${1:/* condition */}, ${2:/* label */}, "${3:%s}", ${4});${0}
 endsnippet
 
 snippet gu "guard macro"
-guard("${1:%s}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}${0}
+guard(${1:/* label */}, "${2:%s}", ${3});${0}
 endsnippet
 
 snippet dgu "db_guard macro"
-db_guard("${1:%s}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}${0}
+db_guard(${1:/* label */}, "${2:%s}", ${3});${0}
 endsnippet
 
 snippet dp "db_print macro"
-db_print("${1:%s}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}${0}
+db_print("${1:%s}", ${2});${0}
 endsnippet
 
 snippet mua "mu_assert macro"
-mu_assert(${1:/* condition */}, "${2:%s}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}${0}
+mu_assert(${1:/* condition */}, "${2:%s}", ${3});${0}
 endsnippet
 
 snippet as "assert"
 assert(${1:/* condition */} && "${2:error message}");${0}
+endsnippet
+
+snippet asn "assert null param"
+assert(${1:/* param */} && "$1 is NULL.");${0}
 endsnippet
 
 snippet testf "test function for minunit.h"
@@ -265,7 +268,6 @@ endsnippet
 
 snippet minunit "test file skeleton for minunit.h"
 #include "minunit.h"
-/* additional includes go here */
 
 /* variables go here */
 
