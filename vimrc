@@ -93,6 +93,10 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit = "vertical"
 let g:ultisnips_python_style = "google"
 
+" Jedi-Vim
+let g:jedi#popup_on_dot = 0
+let g:jedi#force_py_version = 3
+
 " }}}
 " {{{ Functions
 
