@@ -228,7 +228,7 @@ vnoremap <leader>P :!python<cr>
 nnoremap <leader>t :tabnew<cr>
 
 " edit vimrc in a new tab page
-nnoremap <leader>ve :split $MYVIMRC<cr>
+nnoremap <leader>ve :tabedit $MYVIMRC<cr>
 
 " source written vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
